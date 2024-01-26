@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Изучение JavaScript</title>
+  <style>
+    body {
+      transition: background-color 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+  <h1>Добро пожаловать на страницу изучения JavaScript!</h1>
+
+  <p>JavaScript (JS) - это язык программирования, используемый для создания интерактивных веб-сайтов.</p>
+
+  <p>Теперь представьтесь, пожалуйста:</p>
+  <input type="text" id="username">
+  <button onclick="saveName()">Сохранить</button>
+
+  <p>Выберите тему:</p>
+  <button onclick="applySummerTheme()">Лето</button>
+  <button onclick="applyWinterTheme()">Зима</button>
+
+  <script>
+    const usernameInput = document.getElementById('username');
+
+    // Функция сохранения имени пользователя в localStorage
+    function saveName() {
+      let username = usernameInput.value;
+      if (username) {
+        localStorage.setItem('username', username);
+      }
+    }
+
+    // Функция применения темы оформления "Лето"
+    function applySummerTheme() {
+      document.body.style.backgroundColor = '#e6f7ff';  // Изменить фоновый цвет
+      // Другие стили или изображения для темы "Лето"
+      localStorage.setItem('theme', 'summer'); // Сохранить выбранную тему
+    }
+
+    // Функция применения темы оформления "Зима"
+    function applyWinterTheme() {
+      document.body.style.backgroundColor = '#99ccff';  // Изменить фоновый цвет
+      // Другие стили или изображения для темы "Зима"
+      localStorage.setItem('theme', 'winter'); // Сохранить выбранную тему
+    }
+
+    // Обработчик события загрузки страницы для применения выбранной темы
+    window.onload = function() {
+      const theme = localStorage.getItem('theme');
+      if (theme === 'summer') {
+        applySummerTheme();
+      } else if (theme === 'winter') {
+        applyWinterTheme();
+      }
+    }
+  </script>
+</body>
+</html>

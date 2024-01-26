@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Изучение JavaScript</title>
+  <style>
+    /* Стили для заставки */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 24px;
+      text-align: center;
+      padding-top: 100px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Добро пожаловать на страницу изучения JavaScript!</h1>
+
+  <p>JavaScript (JS) - это язык программирования, используемый для создания интерактивных веб-сайтов.</p>
+
+  <p>Теперь представьтесь, пожалуйста:</p>
+  <input type="text" id="username">
+  <button onclick="saveName()">Сохранить</button>
+
+  <p>Выберите действие:</p>
+  <button onclick="runTask1()">Задание 1</button>
+  <button onclick="runTask2()">Задание 2</button>
+  <button onclick="runTest()">Пройти тест</button>
+  <button onclick="showOverlay()">Показать заставку</button>
+
+  <div class="overlay" onclick="hideOverlay()">
+    <p>Сегодняшняя дата: <span id="currentDate"></span></p>
+  </div>
+
+  <script>
+    const usernameInput = document.getElementById('username');
+    const currentDateSpan = document.getElementById('currentDate');
+
+    // Функция сохранения имени пользователя в localStorage
+    function saveName() {
+      let username = usernameInput.value;
+      if (username) {
+        localStorage.setItem('username', username);
+      }
+    }
+
+    // Функция выполнения задания 1
+    function runTask1() {
+  const script = document.createElement('script');
+  script.src = 'file:///C:/путь_к_вашему_файлу/runTask1.js';
+  document.head.appendChild(script);
+}
+
+    // Функция выполнения задания 2
+    function runTask2() {
+  const script = document.createElement('script');
+  script.src = 'file:///C:/путь_к_вашему_файлу/runTask2.js';
+  document.head.appendChild(script);
+}
+
+    // Функция выполнения теста
+    function runTest() {
+      const questions = [
+        {
+          question: 'Что такое JavaScript?',
+          answer: 'Язык программирования для создания интерактивных веб-сайтов.'
+        },
+        {
+          question: 'Что такое переменная в JavaScript?',
+          answer: 'Имя, которое может содержать различные данные.'
+        }
+        // Другие вопросы и ответы
+      ];
+
+      let userAnswers = [];
+      let result = 0;
+
+      for (let i = 0; i < questions.length; i++) {
+        let userAnswer = prompt(questions[i].question);
+        userAnswers.push({ question: questions[i].question, userAnswer: userAnswer });
+if (userAnswer && userAnswer.toLowerCase() === questions[i].answer.toLowerCase()) {
+          result++;
+        }
+      }
+
+      alert(`Вы ответили правильно на ${result} из ${questions.length} вопросов.`);
+
+      console.log("Ваши ответы:");
+      for (let i = 0; i < userAnswers.length; i++) {
+        let userResponse = userAnswers[i].userAnswer ? userAnswers[i].userAnswer : "Пользователь не ответил";
+        console.log(`${userAnswers[i].question}: ${userResponse}`);
+      }
+    }
+
+    // Функция показа заставки
+    function showOverlay() {
+      const overlay = document.querySelector('.overlay');
+      overlay.style.display = 'block';
+      currentDateSpan.textContent = new Date().toLocaleDateString();
+    }
+
+    // Функция скрытия заставки при клике
+    function hideOverlay() {
+      const overlay = document.querySelector('.overlay');
+      overlay.style.display = 'none';
+    }
+
+    // Восстановление имени пользователя из localStorage
+    let savedUsername = localStorage.getItem('username');
+    if (savedUsername) {
+      usernameInput.value = savedUsername;
+    }
+  </script>
+</body>
+</html>

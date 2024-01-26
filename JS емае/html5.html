@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Подбор фильмов</title>
+  <style>
+    /* CSS стили могут быть добавлены здесь */
+  </style>
+</head>
+<body>
+  <h1>Сервис подбора фильмов</h1>
+
+  <form id="quizForm">
+    <p>Какой жанр предпочитаете?</p>
+    <input type="checkbox" name="genre" value="фантастика"> Фантастика
+    <input type="checkbox" name="genre" value="драма"> Драма
+    <input type="checkbox" name="genre" value="боевик"> Боевик
+    <input type="checkbox" name="genre" value="мультфильм"> Мультфильм
+    <input type="checkbox" name="genre" value="триллер"> Триллер
+    <input type="checkbox" name="genre" value="анимация"> Анимация
+    <input type="checkbox" name="genre" value="фэнтези"> Фэнтези
+    <input type="checkbox" name="genre" value="драмеди"> Драмеди
+    <input type="checkbox" name="genre" value="комедия"> Комедия
+
+    <p>Любимый режиссер:</p>
+    <input type="text" name="director">
+
+    <button type="submit">Получить рекомендации</button>
+  </form>
+
+  <div id="recommendations">
+    <h2>Рекомендуемые фильмы:</h2>
+    <p>Звездные войны (фантастика, реж. Джордж Лукас)</p>
+    <p>Титаник (драма, реж. Джеймс Кэмерон)</p>
+    <p>Гладиатор (боевик, реж. Ридли Скотт)</p>
+    <p>Ледниковый период (мультфильм, реж. Крис Уэдж)</p>
+    <p>Начало (триллер, реж. Кристофер Нолан)</p>
+    <p>Шрэк (анимация, реж. Эндрю Адамсон)</p>
+    <p>Игра престолов (фэнтези, реж. Дэвид Бениофф)</p>
+    <p>1+1 (драмеди, реж. Оливье Накаш)</p>
+    <p>Укрощение строптивого (комедия, реж. Жозеф МакГрат)</p>
+  </div>
+
+  <script>
+    // Пример базы данных фильмов (с расширенным списком)
+const filmsDatabase = [
+  { title: "Звездные войны", genre: "фантастика", director: "Джордж Лукас" },
+  { title: "Титаник", genre: "драма", director: "Джеймс Кэмерон" },
+  { title: "Гладиатор", genre: "боевик", director: "Ридли Скотт" },
+  { title: "Ледниковый период", genre: "мультфильм", director: "Крис Уэдж" },
+  { title: "Начало", genre: "триллер", director: "Кристофер Нолан" },
+  { title: "Шрэк", genre: "анимация", director: "Эндрю Адамсон" },
+  { title: "Игра престолов", genre: "фэнтези", director: "Дэвид Бениофф" },
+  { title: "1+1", genre: "драмеди", director: "Оливье Накаш" },
+  { title: "Укрощение строптивого", genre: "комедия", director: "Жозеф МакГрат" }
+  // Другие фильмы
+];
+
+// Обработчик отправки формы
+document.getElementById('quizForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Предотвращаем отправку формы
+
+  // Получаем ответы пользователя из формы
+  const selectedGenres = Array.from(document.querySelectorAll('input[name="genre"]:checked')).map(checkbox => checkbox.value);
+  const favoriteDirector = document.querySelector('input[name="director"]').value;
+
+  // Ищем подходящие фильмы на основе ответов пользователя
+  const recommendedFilms = filmsDatabase.filter(film => {
+    return (selectedGenres.includes(film.genre) || selectedGenres.length === 0) &&
+           (film.director.toLowerCase().includes(favoriteDirector.toLowerCase()) || favoriteDirector === '');
+  });
+
+  // Отображаем рекомендации
+  showRecommendations(recommendedFilms);
+});
+
+// Функция отображения рекомендаций
+function showRecommendations(films) {
+  const recommendationsDiv = document.getElementById('recommendations');
+  recommendationsDiv.innerHTML = "<h2>Рекомендуемые фильмы:</h2>";
+  
+  if (films.length === 0) {
+    recommendationsDiv.innerHTML += "<p>К сожалению, по вашим предпочтениям фильмы не найдены.</p>";
+  } else {
+    films.forEach(film => {
+      recommendationsDiv.innerHTML += `<p>${film.title} (${film.genre}, реж. ${film.director})</p>`;
+    });
+  }
+}
+  </script>
+</body>
+</html>
